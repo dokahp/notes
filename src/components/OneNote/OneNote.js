@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import ContentEditable from 'react-contenteditable'
 import style from './OneNote.module.css';
 
 let OneNote = ({ id, noteText, hashTag, handleDelete, handleEdit }) => {

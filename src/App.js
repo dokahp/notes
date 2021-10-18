@@ -31,17 +31,17 @@ function App() {
     const newNotes = allNotes.filter(el => el.id !== id)
     setAllNotes(newNotes)
   }
-  // const editNote = (id, text) => {
-  //   console.log(id, text)
-  //   let tag = searchHashTagInText(text)
-  //   console.log(tag)
-  //   let editedNotes = allNotes.map(el => el.id === id? {id: id, 
-  //     noteText: text,
-  //     hashTag: tag !== '' ? tag : '' } : el)
-  //   setAllNotes(editedNotes)
-  //   setHashTag([...allHashTags, tag])
+  const editNote = (id, text) => {
+    console.log(id, text)
+    let tag = searchHashTagInText(text)
+    console.log(tag)
+    let editedNotes = allNotes.map(el => el.id === id? {id: id, 
+      noteText: text,
+      hashTag: tag !== '' ? tag : '' } : el)
+    setAllNotes(editedNotes)
+    setHashTag([...allHashTags, tag])
       
-  // }
+  }
   const selectChanged = (e) => {
     setSearchTag(e.value)
   }
