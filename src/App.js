@@ -28,11 +28,9 @@ function App() {
   }
   const deleteOneNote = (id, text) => {
     const oldTags = searchHashTagInText(text)
-    console.log(oldTags)
     const newNotes = allNotes.filter(el => el.id !== id)
     for (let i=0; i < allHashTags.length; i++) {
       if (allHashTags[i].join('') === oldTags.join('')) {
-        console.log(allHashTags[i].join(''), oldTags.join(''))
         allHashTags.splice(i, 1)
         break
       }
