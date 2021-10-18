@@ -1,7 +1,6 @@
 
 .container {
     display: flex;
-    /* justify-content: s; */
     align-items: center;
     flex-wrap: wrap;
 }
