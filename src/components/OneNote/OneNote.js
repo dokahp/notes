@@ -14,7 +14,7 @@ let OneNote = ({ id, noteText, hashTag, handleDelete, handleEdit }) => {
                 {
                     hashTag.map(el => <span className={hashTag ? style.hashTag : ''}>{el}</span>)
                 }
-                <button className={style.deleteBtn} onClick={() => handleDelete(id)}>Delete</button>
+                <button className={style.deleteBtn} onClick={() => handleDelete(id, text.current)}>Delete</button>
             </div>
 
         </div>

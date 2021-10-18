@@ -6,7 +6,7 @@ let AllNotes = ({ allNotes, handleSave, handleDelete, handleEdit }) => {
     return (
         <div className={style.container}>
             {
-                allNotes.map(el => <OneNote id={el.id}
+                allNotes.map(el => <OneNote key={el.id} id={el.id}
                     noteText={el.noteText}
                     hashTag={el.hashTag}
                     handleDelete={handleDelete}

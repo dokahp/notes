@@ -9,7 +9,6 @@ function App() {
   const [allNotes, setAllNotes] = useState([])
   const [allHashTags, setHashTag] = useState([])
   const [searchTag, setSearchTag] = useState('')
-  console.log(allHashTags)
   let allHashWithoutDublicates = new Set(allHashTags.flat())
   let options = [{ label: 'Показать все заметки', value: '' }, ...Array
     .from(allHashWithoutDublicates)
@@ -24,13 +23,22 @@ function App() {
       noteText: noteText,
       hashTag: searchHashTagInText(noteText) !== '' ? searchHashTagInText(noteText) : ''
     }
-    const allNotesWithNewNote = [...allNotes, newNote]
-    setAllNotes(allNotesWithNewNote)
+    setAllNotes([...allNotes, newNote])
     setHashTag([...allHashTags, searchHashTagInText(noteText)])
   }
-  const deleteOneNote = (id) => {
+  const deleteOneNote = (id, text) => {
+    const oldTags = searchHashTagInText(text)
+    console.log(oldTags)
     const newNotes = allNotes.filter(el => el.id !== id)
+    for (let i=0; i < allHashTags.length; i++) {
+      if (allHashTags[i].join('') === oldTags.join('')) {
+        console.log(allHashTags[i].join(''), oldTags.join(''))
+        allHashTags.splice(i, 1)
+        break
+      }
+    }
     setAllNotes(newNotes)
+    setHashTag(allHashTags)
   }
   const editNote = (id, text) => {
     let tag = searchHashTagInText(text)
@@ -53,7 +61,7 @@ function App() {
           defaultValue={{ label: 'Показать все заметки', value: '' }} />
         </div>
       </div>
-      <AllNotes allNotes={searchTag !== '' ? allNotes.filter(note => note.hashTag.includes(searchTag)) : allNotes}
+      <AllNotes key={0} allNotes={searchTag !== '' ? allNotes.filter(note => note.hashTag.includes(searchTag)) : allNotes}
         handleSave={addNewNote} handleDelete={deleteOneNote} handleEdit={editNote} />
     </div>
   )
