@@ -17,8 +17,9 @@ function App() {
   const [searchTag, setSearchTag] = useState('')
 
   const searchHashTagInText = (text) => {
-    let hashTag = text.split(' ').filter(el => el[0] === '#')
-    return hashTag
+    let hashTag = new Set(text.split(' ').filter(el => el[0] === '#'))
+    // no dublicate hashtag
+    return Array.from(hashTag)
   }
 
   const handleAddNote = (noteText) => {
