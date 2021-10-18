@@ -16,7 +16,6 @@ let OneNote = ({ id, noteText, hashTag, handleDelete, handleEdit }) => {
                 }
                 <button className={style.deleteBtn} onClick={() => handleDelete(id, text.current)}>Delete</button>
             </div>
-
         </div>
     )
 }

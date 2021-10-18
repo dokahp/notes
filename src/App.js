@@ -1,65 +1,75 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
-import AllNotes from './components/AllNotes/AllNotes';
 import Select from 'react-select';
+
+import AllNotes from './components/AllNotes/AllNotes';
+import AddNote from './components/AddNote/AddNote';
+
 import './App.scss';
 
+
+
+const defaultOptions = { label: 'Показать все заметки', value: '' }
 
 function App() {
   const [allNotes, setAllNotes] = useState([])
   const [allHashTags, setHashTag] = useState([])
   const [searchTag, setSearchTag] = useState('')
-  let allHashWithoutDublicates = allHashTags.map(el => el.tags)
-  allHashWithoutDublicates = new Set(allHashWithoutDublicates.flat())
 
-  let options = [{ label: 'Показать все заметки', value: '' }, ...Array
-    .from(allHashWithoutDublicates)
-    .map(el => ({ value: el, label: el.slice(1) }))]
   const searchHashTagInText = (text) => {
     let hashTag = text.split(' ').filter(el => el[0] === '#')
     return hashTag
   }
-  const addNewNote = (noteText) => {
+
+  const handleAddNote = (noteText) => {
     const newNote = {
       id: nanoid(),
       noteText: noteText,
       hashTag: searchHashTagInText(noteText) !== '' ? searchHashTagInText(noteText) : ''
     }
-    setAllNotes([...allNotes, newNote])
-    setHashTag([...allHashTags, {tags: searchHashTagInText(noteText), id: newNote.id}])
+    setAllNotes(allNotes => [...allNotes, newNote])
+    setHashTag(allHashTags => [...allHashTags, { tags: searchHashTagInText(noteText), id: newNote.id }])
   }
-  const deleteOneNote = (id) => {
+
+  const handleDeleteNote = (id) => {
     const newNotes = allNotes.filter(el => el.id !== id)
-    allHashTags.filter(el => el.id === id? el.tags = []: el)
+    allHashTags.filter(el => el.id === id ? el.tags = [] : el)
     setAllNotes(newNotes)
     setHashTag(allHashTags)
   }
-  const editNote = (id, text) => {
+  
+  const handleEditNote = (id, text) => {
     let tag = searchHashTagInText(text)
-    let editedNotes = allNotes.map(el => el.id === id ? {
+    setAllNotes(allNotes => allNotes.map(el => el.id === id ? {
       id: id,
       noteText: text,
       hashTag: tag !== '' ? tag : ''
-    } : el)
-    setAllNotes(editedNotes)
-    allHashTags.map(el => el.id === id? el.tags = tag: el)
-    setHashTag(allHashTags)
+    } : el))
+    setHashTag(allHashTags => allHashTags.map(el => el.id === id ? { ...el, tags: tag } : el))
   }
-  const selectChanged = (e) => {
-    setSearchTag(e.value)
-  }
+
 
   return (
     <div>
       <div className="search">
         <h1>Search Note By Tag</h1>
-        <div style={{ width: '400px' }}>
-          <Select options={options} onChange={selectChanged}
-            defaultValue={{ label: 'Показать все заметки', value: '' }} />
-        </div>
+        <div style={{width: "400px"}}>
+          <Select
+            options={[
+              defaultOptions,
+              ...[...new Set(allHashTags.reduce((acc, { tags }) => [...acc, ...tags], []))].map(tag => ({ value: tag, label: tag.slice(1) }))
+            ]}
+            onChange={({ value }) => setSearchTag(value)}
+            defaultValue={defaultOptions} /></div>
+
       </div>
-      <AllNotes key={0} allNotes={searchTag !== '' ? allNotes.filter(note => note.hashTag.includes(searchTag)) : allNotes}
-        handleSave={addNewNote} handleDelete={deleteOneNote} handleEdit={editNote} />
+      <div className="container">
+        <AllNotes
+          allNotes={searchTag !== '' ? allNotes.filter(note => note.hashTag.includes(searchTag)) : allNotes}
+          handleDelete={handleDeleteNote}
+          handleEdit={handleEditNote} />
+        <AddNote handleSave={handleAddNote} />
+      </div>
     </div>
   )
 }

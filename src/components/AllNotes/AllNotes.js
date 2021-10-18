@@ -1,10 +1,9 @@
-import AddNote from "../AddNote/AddNote";
 import OneNote from "../OneNote/OneNote";
-import style from './AllNotes.module.css';
 
-let AllNotes = ({ allNotes, handleSave, handleDelete, handleEdit }) => {
+
+let AllNotes = ({ allNotes, handleDelete, handleEdit }) => {
     return (
-        <div className={style.container}>
+        <>
             {
                 allNotes.map(el => <OneNote key={el.id} id={el.id}
                     noteText={el.noteText}
@@ -12,8 +11,8 @@ let AllNotes = ({ allNotes, handleSave, handleDelete, handleEdit }) => {
                     handleDelete={handleDelete}
                     handleEdit={handleEdit} />)
             }
-            <AddNote handleSave={handleSave} />
-        </div>
+            
+        </>
     )
 }
 
