@@ -1,0 +1,17 @@
+
+.container {
+    display: flex;
+    /* justify-content: s; */
+    align-items: center;
+    flex-wrap: wrap;
+}
+.hashTag {
+    margin: 5px;
+    padding: 4px;
+    background: gray;
+    color: #fff;
+    border-radius: 6px;
+}
+.deleteBtn {
+    width: 100%;
+}

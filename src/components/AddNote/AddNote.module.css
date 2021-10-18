@@ -1,0 +1,12 @@
+
+.textArea {
+    width: 99%;
+    height: 80%;
+    margin: 2px;
+    padding: 5px;
+    resize: none;
+    outline: none;
+    background: #CCCCFF;
+    border: 0;
+    font-size: 16px;
+}

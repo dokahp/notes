@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+$addNote: #CCCCFF;
+$oneNote: #FFC;
+
+body {
+        background: #666;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h3 {
+                font-size: 16px;
+                margin: 5px;
+        }
+        span {
+                font-size: 12px;
+        }
+}
+.note {
+        color: #000;
+        margin: 20px;
+        height: 15em;
+        width: 15em;
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        white-space: pre-wrap;
+}
+.addNote {
+        background: $addNote;
+}
+.oneNote {
+        background: $oneNote;
+}
+.search {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+}
