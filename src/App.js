@@ -8,7 +8,7 @@ import AddNote from './components/AddNote/AddNote';
 import './App.scss';
 
 
-
+// Начальное значение для селектора и первое, чтобы показывать все записи
 const defaultOptions = { label: 'Показать все заметки', value: '' }
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
     setAllNotes(newNotes)
     setHashTag(allHashTags)
   }
-  
+
   const handleEditNote = (id, text) => {
     let tag = searchHashTagInText(text)
     setAllNotes(allNotes => allNotes.map(el => el.id === id ? {
@@ -61,7 +61,6 @@ function App() {
             ]}
             onChange={({ value }) => setSearchTag(value)}
             defaultValue={defaultOptions} /></div>
-
       </div>
       <div className="container">
         <AllNotes
